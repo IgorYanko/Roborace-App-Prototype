@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Competition {
+  id                   Int      @id @default(autoincrement())
+  name                 String
+  maxTeams             Int      @map("max_teams")
+  maxPlayersPerTeam    Int      @map("max_players_per_team")
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos
+  teams                Team[]
+  matches              Match[]
+
+  @@map("competitions")
+}
+
+model Team {
+  id           Int      @id @default(autoincrement())
+  name         String
+  institution  String
+  points       Int      @default(0)
+  wins         Int      @default(0)
+  draws        Int      @default(0)
+  losses       Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos
+  competitionId Int     @map("competition_id")
+  competition   Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  
+  players      Player[]
+  matchesAsTeam1 Match[] @relation("Team1Matches")
+  matchesAsTeam2 Match[] @relation("Team2Matches")
+
+  @@map("teams")
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos
+  teamId    Int      @map("team_id")
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("players")
+}
+
+model Match {
+  id           Int      @id @default(autoincrement())
+  result       String?  @db.VarChar(20) // 'team1_win', 'team2_win', 'draw'
+  phase        String   @db.VarChar(20) // 'group', 'semifinal', 'third_place', 'final'
+  matchDate    DateTime? @map("match_date")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relacionamentos
+  team1Id      Int      @map("team1_id")
+  team2Id      Int      @map("team2_id")
+  competitionId Int     @map("competition_id")
+  
+  team1       Team      @relation("Team1Matches", fields: [team1Id], references: [id], onDelete: Cascade)
+  team2       Team      @relation("Team2Matches", fields: [team2Id], references: [id], onDelete: Cascade)
+  competition Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+
+  @@map("matches")
+}
