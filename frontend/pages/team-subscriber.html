@@ -256,6 +256,30 @@
             color: var(--text-light);
         }
 
+        select {
+            background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2300a000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") no-repeat right 12px center/16px 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 40px;
+        }
+
+        select option {
+            background-color: var(--black-light);
+            color: var(--text-light);
+            padding: 10px;
+        }
+
+        select:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 var(--text-light);
+        }
+
+        /* Para Internet Explorer */
+        select::-ms-expand {
+            display: none;
+        }
+
         input:focus,
         select:focus,
         textarea:focus {
@@ -791,7 +815,8 @@
 
             // Verificar se há membros na lista
             function checkMembersList() {
-                if (teamMembers.length === 0) {
+                const memberItems = document.querySelectorAll('.member-item');
+                if (memberItems.length === 0) {
                     emptyMembers.style.display = 'block';
                 } else {
                     emptyMembers.style.display = 'none';
@@ -928,5 +953,4 @@
         });
     </script>
 </body>
-
 </html>
