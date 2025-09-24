@@ -129,7 +129,7 @@ export class ClassificationController {
 
       for (const match of completedMatches) {
         await this.updateClassificationFromMatch(
-          competitionId,
+          competitionId!,
           match.homeTeamId,
           match.awayTeamId,
           match.homeScore!,
@@ -137,7 +137,7 @@ export class ClassificationController {
         );
       }
 
-      await this.recalculatePositions(competitionId);
+      await this.recalculatePositions(competitionId!);
 
       const updatedClassifications = await prisma.classification.findMany({
         where: { competitionId },
@@ -177,7 +177,7 @@ export class ClassificationController {
         ]
       });
 
-      const formattedStandings = standings.map((standing, index) => ({
+      const formattedStandings = standings.map((standing: any, index: number) => ({
         position: index + 1,
         team: {
           id: standing.team.id,
