@@ -1,11 +1,853 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro de Equipe - Roborace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============ RESET E ESTILOS GLOBAIS ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --black-dark: #0a0a0a;
+            --black: #121212;
+            --black-light: #1a1a1a;
+            --accent-dark: #006400;
+            --accent: #008000;
+            --accent-light: #00a000;
+            --accent-bright: #00cc00;
+            --text-light: #f0f0f0;
+            --text-muted: #b0b0b0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(0, 128, 0, 0.3);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--black-dark), var(--black), var(--black-light));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Efeito de partículas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(18, 18, 18, 0.95));
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 1280px;
+            margin: 0;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            width: 200px;
+            height: auto;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent-light), var(--accent-bright));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            margin-top: 4px;
+            opacity: 0.9;
+            color: var(--text-muted);
+        }
+
+        /* ============ PRINCIPAL ============ */
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+            border: none;
+            border-radius: 50px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 200, 0, 0.5);
+            background: linear-gradient(to right, var(--accent-light), var(--accent-bright));
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, #555, #777);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #666, #888);
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+        }
+
+        .btn-danger {
+            background: linear-gradient(to right, #a00, #c00);
+        }
+
+        /* ============ FORMULÁRIO ============ */
+
+        .form-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent-light);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .form-group.full-width {
+            flex: 0 0 100%;
+            background-color: black;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .required::after {
+            content: " *";
+            color: #ff5555;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            color: var(--text-light);
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2300a000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") no-repeat right 12px center/16px 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 40px;
+        }
+
+        select option {
+            background-color: var(--black-light);
+            color: var(--text-light);
+            padding: 10px;
+        }
+
+        select:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 var(--text-light);
+        }
+
+        /* Para Internet Explorer */
+        select::-ms-expand {
+            display: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent-light);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 200, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        input:active,
+        select:active,
+        textarea:active {
+            border-color: var(--accent-bright);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-help {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* ============ LISTA DE MEMBROS ============ */
+
+        .members-list {
+            margin-top: 20px;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent-bright));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-light);
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ============ PRÉ-VISUALIZAÇÃO DO ROBÔ ============ */
+
+        .robot-preview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .robot-icon {
+            font-size: 4rem;
+            color: var(--accent-light);
+        }
+
+        .robot-details h4 {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .robot-details p {
+            color: var(--text-muted);
+        }
+
+        /* ============ ALERTAS ============ */
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: rgba(0, 128, 0, 0.2);
+            color: var(--text-light);
+            border-left-color: var(--accent);
+        }
+
+        .alert-danger {
+            background: rgba(128, 0, 0, 0.2);
+            color: var(--text-light);
+            border-left-color: #c00;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(18, 18, 18, 0.95));
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+            border-top: 2px solid var(--accent);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent-light), var(--accent-bright));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-bright);
+        }
+
+        .copyright {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            color: var(--text-muted);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-bright);
+            transform: translateY(-3px);
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(0, 200, 0, 0.5);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .page-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .member-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .member-actions {
+                justify-content: center;
+            }
+
+            .robot-preview {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
+    <div id="particles-js"></div>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <!-- Imagem da logo seria inserida aqui -->
+                <div
+                    style="width: 100%; height: 60px; background: rgba(0, 128, 0, 0.2); display: flex; align-items: center; justify-content: center; color: var(--accent-light); font-weight: bold; border-radius: 5px;">
+                    LOGO UNIVÁS
+                </div>
+            </div>
+            <div>
+                <h1 class="glow">Roborace</h1>
+                <div class="subtitle">Sistema de Gerenciamento de Competições</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-users"></i> Cadastro de Equipe
+            </h1>
+            <div class="page-actions">
+                <button class="btn btn-secondary" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+
+        <div class="alert alert-success">
+            <strong><i class="fas fa-info-circle"></i> Informação:</strong> Preencha todos os campos obrigatórios (*)
+            para cadastrar uma nova equipe na competição.
+        </div>
+
+        <div class="form-container">
+            <form id="teamForm">
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-users"></i> Informações da Equipe
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="teamName" class="required">Nome da Equipe</label>
+                            <input type="text" id="teamName" name="teamName" placeholder="Ex: RoboTeam Alpha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="teamCategory" class="required">Categoria</label>
+                            <select id="teamCategory" name="teamCategory" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="school">Escolar</option>
+                                <option value="university">Universitário</option>
+                                <option value="open">Aberto</option>
+                                <option value="professional">Profissional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution" class="required">Escola/Instituição</label>
+                            <input type="text" id="institution" name="institution" placeholder="Ex: Univás" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="required">Cidade</label>
+                            <input type="text" id="city" name="city" placeholder="Ex: Pouso Alegre" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="coach">Treinador/Orientador</label>
+                            <input type="text" id="coach" name="coach" placeholder="Nome do treinador">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required">E-mail de Contato</label>
+                            <input type="email" id="email" name="email" placeholder="equipe@exemplo.com" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descrição da Equipe</label>
+                        <textarea id="description" name="description"
+                            placeholder="Breve descrição sobre a equipe, objetivos, etc."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-friends"></i> Membros da Equipe
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="memberName">Nome do Membro</label>
+                            <input type="text" id="memberName" name="memberName" placeholder="Nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberRole">Função</label>
+                            <select id="memberRole" name="memberRole">
+                                <option value="">Selecione uma função</option>
+                                <option value="programmer">Programador</option>
+                                <option value="designer">Designer</option>
+                                <option value="engineer">Engenheiro</option>
+                                <option value="captain">Capitão</option>
+                                <option value="other">Outra</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="align-self: flex-end;">
+                            <button type="button" class="btn" id="addMember">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-avatar">JS</div>
+                            <div class="member-info">
+                                <div class="member-name">João Silva</div>
+                                <div class="member-role">Capitão e Programador</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn btn-secondary action-btn">Editar</button>
+                                <button type="button" class="btn btn-danger action-btn remove-member">Remover</button>
+                            </div>
+                        </div>
+
+                        <div class="member-item">
+                            <div class="member-avatar">MA</div>
+                            <div class="member-info">
+                                <div class="member-name">Maria Andrade</div>
+                                <div class="member-role">Engenheira Mecânica</div>
+                            </div>
+                            <div class="member-actions">
+                                <button type="button" class="btn btn-secondary action-btn">Editar</button>
+                                <button type="button" class="btn btn-danger action-btn remove-member">Remover</button>
+                            </div>
+                        </div>
+
+                        <div class="empty-state" id="emptyMembers" style="display: none;">
+                            <i class="fas fa-user-friends"></i>
+                            <h3>Nenhum membro adicionado</h3>
+                            <p>Adicione os membros da equipe usando o formulário acima.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-robot"></i> Informações do Robô
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="robotName">Nome do Robô</label>
+                            <input type="text" id="robotName" name="robotName" placeholder="Ex: ThunderBot 5000">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="robotWeight">Peso (kg)</label>
+                            <input type="number" id="robotWeight" name="robotWeight" placeholder="0.0" step="0.1"
+                                min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="robotDimensions">Dimensões (cm)</label>
+                            <input type="text" id="robotDimensions" name="robotDimensions" placeholder="L x A x C">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="robotDescription">Descrição do Robô</label>
+                        <textarea id="robotDescription" name="robotDescription"
+                            placeholder="Descreva as características, tecnologias utilizadas, etc."></textarea>
+                        <div class="form-help">Inclua informações sobre sensores, atuadores, materiais utilizados e
+                            características especiais.</div>
+                    </div>
+
+                    <div class="robot-preview">
+                        <div class="robot-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="robot-details">
+                            <h4>Pré-visualização do Robô</h4>
+                            <p>As informações do robô aparecerão aqui após o preenchimento.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-actions"
+                    style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px;">
+                    <button type="button" class="btn btn-secondary" onclick="history.back()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Salvar Equipe
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Roborace</div>
+            <div>Projeto Roborace - Sistema de Competição</div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+                <a href="#"><i class="fas fa-life-ring"></i> Suporte</a>
+                <a href="#"><i class="fas fa-book"></i> Documentação</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/sistemasunivas?igsh=NmExMGVzdGtwOXU2"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                © 2025 Roborace - Desenvolvido para a Univás | Luiz Gustavo
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Configuração das partículas
+        document.addEventListener('DOMContentLoaded', function () {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    color: { value: "#008000" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#00a000",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" },
+                        resize: true
+                    }
+                },
+                retina_detect: true
+            });
+
+            // Controle da lista de membros
+            const membersList = document.querySelector('.members-list');
+            const emptyMembers = document.getElementById('emptyMembers');
+            const addMemberBtn = document.getElementById('addMember');
+
+            // Verificar se há membros na lista
+            function checkMembersList() {
+                const memberItems = document.querySelectorAll('.member-item');
+                if (memberItems.length === 0) {
+                    emptyMembers.style.display = 'block';
+                } else {
+                    emptyMembers.style.display = 'none';
+                }
+            }
+
+            // Adicionar membro (simulação)
+            addMemberBtn.addEventListener('click', function () {
+                const memberName = document.getElementById('memberName').value;
+                const memberRole = document.getElementById('memberRole').value;
+
+                if (memberName && memberRole) {
+                    // Em uma aplicação real, adicionaríamos o membro à lista
+                    alert(`Membro ${memberName} adicionado como ${memberRole}`);
+                    document.getElementById('memberName').value = '';
+                    document.getElementById('memberRole').value = '';
+                } else {
+                    alert('Por favor, preencha o nome e a função do membro');
+                }
+            });
+
+            // Remover membro (simulação)
+            document.querySelectorAll('.remove-member').forEach(button => {
+                button.addEventListener('click', function () {
+                    if (confirm('Tem certeza que deseja remover este membro?')) {
+                        const memberItem = this.closest('.member-item');
+                        memberItem.remove();
+                        checkMembersList();
+                    }
+                });
+            });
+
+            // Envio do formulário
+            document.getElementById('teamForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Equipe cadastrada com sucesso!');
+                // Em uma aplicação real, aqui enviaríamos os dados para o servidor
+            });
+
+            // Inicializar verificação da lista de membros
+            checkMembersList();
+        });
+    </script>
 </body>
+
 </html>
