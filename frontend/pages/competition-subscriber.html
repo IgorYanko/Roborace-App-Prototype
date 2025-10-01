@@ -167,6 +167,7 @@
     </style>
   </head>
   <body>
+    <script src="../assets/scripts/api.js"></script>
     <div class="page-header">
       <h2 class="logo-text">UNIVAS</h2>
     </div>
@@ -179,8 +180,7 @@
 
       <form
         class="form-card"
-        action="file:///C:/criar-competicao"
-        method="post"
+        id="competitionForm"
       >
         <h2>Parâmetros da Competição</h2>
 
@@ -220,5 +220,45 @@
         </div>
       </form>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('competitionForm');
+        
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          
+          const formData = {
+            name: document.getElementById('competition-name').value.trim(),
+            maxTeams: parseInt(document.getElementById('max-teams').value),
+            maxPlayersPerTeam: parseInt(document.getElementById('max-players').value)
+          };
+
+          // Validação
+          const errors = FormValidator.validateCompetitionForm(formData);
+          if (errors.length > 0) {
+            NotificationService.show(errors.join(', '), 'error');
+            return;
+          }
+
+          try {
+            const competition = await ApiService.createCompetition(formData);
+            NotificationService.show('Competição criada com sucesso!', 'success');
+            
+            // Limpar formulário
+            form.reset();
+            
+            // Redirecionar para o menu após 2 segundos
+            setTimeout(() => {
+              window.location.href = './menu.html';
+            }, 2000);
+            
+          } catch (error) {
+            console.error('Erro ao criar competição:', error);
+            NotificationService.show('Erro ao criar competição: ' + error.message, 'error');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

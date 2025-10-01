@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -62,8 +62,8 @@ model Player {
 
 model Match {
   id           Int      @id @default(autoincrement())
-  result       String?  @db.VarChar(20) // 'team1_win', 'team2_win', 'draw'
-  phase        String   @db.VarChar(20) // 'group', 'semifinal', 'third_place', 'final'
+  result       String?  // 'team1_win', 'team2_win', 'draw'
+  phase        String   // 'group', 'semifinal', 'third_place', 'final'
   matchDate    DateTime? @map("match_date")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")

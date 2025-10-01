@@ -411,17 +411,17 @@
         <div class="dashboard-container">
             <div class="dashboard-card">
                 <h3>Competições Ativas</h3>
-                <div class="card-value">2</div>
+                <div class="card-value" id="activeCompetitions">-</div>
                 <div class="card-description">Em andamento</div>
             </div>
             <div class="dashboard-card">
                 <h3>Equipes Cadastradas</h3>
-                <div class="card-value">16</div>
+                <div class="card-value" id="totalTeams">-</div>
                 <div class="card-description">Equipes</div>
             </div>
             <div class="dashboard-card">
                 <h3>Partidas Realizadas</h3>
-                <div class="card-value">42</div>
+                <div class="card-value" id="totalMatches">-</div>
                 <div class="card-description">Nesta temporada</div>
             </div>
         </div>
@@ -448,23 +448,10 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="upcomingMatchesTableBody">
                     <tr>
-                        <td>15/10/2023</td>
-                        <td>RoboTeam Alpha</td>
-                        <td>TechBots</td>
-                        <td>Eliminatórias</td>
-                        <td class="actions">
-                            <button class="btn">Registrar Resultado</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>18/10/2023</td>
-                        <td>Mecatron Masters</td>
-                        <td>Future Engineers</td>
-                        <td>Eliminatórias</td>
-                        <td class="actions">
-                            <button class="btn">Registrar Resultado</button>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando próximas partidas...
                         </td>
                     </tr>
                 </tbody>
@@ -484,25 +471,10 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="competitionsTableBody">
                     <tr>
-                        <td>Roborace 2023 - Fase Regional</td>
-                        <td>01/09/2023</td>
-                        <td>30/10/2023</td>
-                        <td><span class="status-badge status-active">Ativa</span></td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Encerrar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Roborace 2023 - Fase Nacional</td>
-                        <td>15/11/2023</td>
-                        <td>20/12/2023</td>
-                        <td><span class="status-badge status-inactive">Planejamento</span></td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn">Ativar</button>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando competições...
                         </td>
                     </tr>
                 </tbody>
@@ -522,35 +494,10 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="teamsTableBody">
                     <tr>
-                        <td>RoboTeam Alpha</td>
-                        <td>Univás</td>
-                        <td>5</td>
-                        <td>245</td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TechBots</td>
-                        <td>Escola Técnica Estadual</td>
-                        <td>4</td>
-                        <td>198</td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Mecatron Masters</td>
-                        <td>IFSULDEMINAS</td>
-                        <td>6</td>
-                        <td>187</td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando equipes...
                         </td>
                     </tr>
                 </tbody>
@@ -571,27 +518,10 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="matchesTableBody">
                     <tr>
-                        <td>#023</td>
-                        <td>RoboTeam Alpha</td>
-                        <td>Future Engineers</td>
-                        <td>3-1</td>
-                        <td>10/10/2023</td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#024</td>
-                        <td>TechBots</td>
-                        <td>Mecatron Masters</td>
-                        <td>2-2</td>
-                        <td>12/10/2023</td>
-                        <td class="actions">
-                            <button class="btn">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando partidas...
                         </td>
                     </tr>
                 </tbody>
@@ -611,30 +541,11 @@
                         <th>Derrotas</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="rankingTableBody">
                     <tr>
-                        <td>1º</td>
-                        <td>RoboTeam Alpha</td>
-                        <td>245</td>
-                        <td>8</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>2º</td>
-                        <td>TechBots</td>
-                        <td>198</td>
-                        <td>6</td>
-                        <td>2</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>3º</td>
-                        <td>Mecatron Masters</td>
-                        <td>187</td>
-                        <td>5</td>
-                        <td>3</td>
-                        <td>2</td>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-spinner fa-spin"></i> Carregando ranking...
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -658,7 +569,13 @@
         </div>
     </footer>
 
+    <script src="../assets/scripts/api.js"></script>
     <script>
+        let competitions = [];
+        let teams = [];
+        let matches = [];
+        let currentCompetition = null;
+
         // Navegação entre abas
         document.querySelectorAll('.tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -667,23 +584,387 @@
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(tabId).classList.add('active');
+                
+                // Carregar dados específicos da aba
+                if (tabId === 'competitions') {
+                    loadCompetitions();
+                } else if (tabId === 'teams') {
+                    loadTeams();
+                } else if (tabId === 'matches') {
+                    loadMatches();
+                } else if (tabId === 'ranking') {
+                    loadRanking();
+                }
             });
         });
 
-        // Simulação de funcionalidades
+        // Carregar dados iniciais
+        document.addEventListener('DOMContentLoaded', async function() {
+            await loadDashboard();
+        });
+
+        // Carregar dashboard
+        async function loadDashboard() {
+            try {
+                competitions = await ApiService.getCompetitions();
+                updateDashboardStats();
+                loadUpcomingMatches();
+            } catch (error) {
+                console.error('Erro ao carregar dashboard:', error);
+                NotificationService.show('Erro ao carregar dados do dashboard', 'error');
+            }
+        }
+
+        // Carregar próximas partidas
+        async function loadUpcomingMatches() {
+            try {
+                if (competitions.length > 0) {
+                    const competitionId = competitions[0].id;
+                    matches = await ApiService.getMatches(competitionId);
+                    updateUpcomingMatchesTable();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar próximas partidas:', error);
+            }
+        }
+
+        // Atualizar tabela de próximas partidas
+        function updateUpcomingMatchesTable() {
+            const tbody = document.getElementById('upcomingMatchesTableBody');
+            tbody.innerHTML = '';
+
+            if (matches.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-gamepad"></i> Nenhuma partida agendada
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            // Mostrar apenas as próximas 3 partidas
+            const upcomingMatches = matches.slice(0, 3);
+            upcomingMatches.forEach(match => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${match.matchDate ? new Date(match.matchDate).toLocaleDateString('pt-BR') : 'A definir'}</td>
+                    <td>${match.team1 ? match.team1.name : 'N/A'}</td>
+                    <td>${match.team2 ? match.team2.name : 'N/A'}</td>
+                    <td>${match.phase || 'Grupo'}</td>
+                    <td class="actions">
+                        <button class="btn" onclick="editMatch(${match.id})">Registrar Resultado</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Atualizar estatísticas do dashboard
+        function updateDashboardStats() {
+            const activeCompetitions = competitions.length;
+            const totalTeams = teams.length;
+            const totalMatches = matches.length;
+
+            document.getElementById('activeCompetitions').textContent = activeCompetitions;
+            document.getElementById('totalTeams').textContent = totalTeams;
+            document.getElementById('totalMatches').textContent = totalMatches;
+        }
+
+        // Carregar competições
+        async function loadCompetitions() {
+            try {
+                competitions = await ApiService.getCompetitions();
+                updateCompetitionsTable();
+            } catch (error) {
+                console.error('Erro ao carregar competições:', error);
+                NotificationService.show('Erro ao carregar competições', 'error');
+            }
+        }
+
+        // Atualizar tabela de competições
+        function updateCompetitionsTable() {
+            const tbody = document.getElementById('competitionsTableBody');
+            tbody.innerHTML = '';
+
+            if (competitions.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-trophy"></i> Nenhuma competição cadastrada
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            competitions.forEach(competition => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${competition.name}</td>
+                    <td>${new Date(competition.createdAt).toLocaleDateString('pt-BR')}</td>
+                    <td>${competition.maxTeams} equipes</td>
+                    <td><span class="status-badge status-active">Ativa</span></td>
+                    <td class="actions">
+                        <button class="btn" onclick="editCompetition(${competition.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="deleteCompetition(${competition.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar equipes
+        async function loadTeams() {
+            try {
+                if (competitions.length > 0) {
+                    const competitionId = competitions[0].id;
+                    teams = await ApiService.getTeams(competitionId);
+                    updateTeamsTable();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar equipes:', error);
+                NotificationService.show('Erro ao carregar equipes', 'error');
+            }
+        }
+
+        // Atualizar tabela de equipes
+        function updateTeamsTable() {
+            const tbody = document.getElementById('teamsTableBody');
+            tbody.innerHTML = '';
+
+            if (teams.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-users"></i> Nenhuma equipe cadastrada
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            teams.forEach(team => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${team.name}</td>
+                    <td>${team.institution}</td>
+                    <td>${team.players ? team.players.length : 0}</td>
+                    <td>${team.points}</td>
+                    <td class="actions">
+                        <button class="btn" onclick="editTeam(${team.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="deleteTeam(${team.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar partidas
+        async function loadMatches() {
+            try {
+                if (competitions.length > 0) {
+                    const competitionId = competitions[0].id;
+                    matches = await ApiService.getMatches(competitionId);
+                    updateMatchesTable();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar partidas:', error);
+                NotificationService.show('Erro ao carregar partidas', 'error');
+            }
+        }
+
+        // Atualizar tabela de partidas
+        function updateMatchesTable() {
+            const tbody = document.getElementById('matchesTableBody');
+            tbody.innerHTML = '';
+
+            if (matches.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-gamepad"></i> Nenhuma partida cadastrada
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            matches.forEach(match => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${match.id}</td>
+                    <td>${match.team1 ? match.team1.name : 'N/A'}</td>
+                    <td>${match.team2 ? match.team2.name : 'N/A'}</td>
+                    <td>${match.result || 'Pendente'}</td>
+                    <td>${match.matchDate ? new Date(match.matchDate).toLocaleDateString('pt-BR') : 'N/A'}</td>
+                    <td class="actions">
+                        <button class="btn" onclick="editMatch(${match.id})">Editar</button>
+                        <button class="btn btn-danger" onclick="deleteMatch(${match.id})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Carregar ranking
+        async function loadRanking() {
+            try {
+                if (competitions.length > 0) {
+                    const competitionId = competitions[0].id;
+                    teams = await ApiService.getTeams(competitionId);
+                    
+                    // Ordenar por pontos
+                    teams.sort((a, b) => b.points - a.points);
+                    updateRankingTable();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar ranking:', error);
+                NotificationService.show('Erro ao carregar ranking', 'error');
+            }
+        }
+
+        // Atualizar tabela de ranking
+        function updateRankingTable() {
+            const tbody = document.getElementById('rankingTableBody');
+            tbody.innerHTML = '';
+
+            if (teams.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                            <i class="fas fa-trophy"></i> Nenhuma equipe para ranking
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            teams.forEach((team, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}º</td>
+                    <td>${team.name}</td>
+                    <td>${team.points}</td>
+                    <td>${team.wins}</td>
+                    <td>${team.draws}</td>
+                    <td>${team.losses}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Funções de ação
+        function editCompetition(id) {
+            const competition = competitions.find(c => c.id === id);
+            if (competition) {
+                const newName = prompt('Novo nome da competição:', competition.name);
+                if (newName && newName.trim()) {
+                    updateCompetition(id, { name: newName.trim() });
+                }
+            }
+        }
+
+        async function updateCompetition(id, data) {
+            try {
+                await ApiService.updateCompetition(id, data);
+                NotificationService.show('Competição atualizada com sucesso!', 'success');
+                loadCompetitions();
+            } catch (error) {
+                console.error('Erro ao atualizar competição:', error);
+                NotificationService.show('Erro ao atualizar competição', 'error');
+            }
+        }
+
+        async function deleteCompetition(id) {
+            if (confirm('Tem certeza que deseja excluir esta competição?')) {
+                try {
+                    await ApiService.deleteCompetition(id);
+                    NotificationService.show('Competição excluída com sucesso!', 'success');
+                    loadCompetitions();
+                } catch (error) {
+                    console.error('Erro ao excluir competição:', error);
+                    NotificationService.show('Erro ao excluir competição', 'error');
+                }
+            }
+        }
+
+        function editTeam(id) {
+            const team = teams.find(t => t.id === id);
+            if (team) {
+                const newName = prompt('Novo nome da equipe:', team.name);
+                if (newName && newName.trim()) {
+                    updateTeam(id, { name: newName.trim() });
+                }
+            }
+        }
+
+        async function updateTeam(id, data) {
+            try {
+                // Note: O backend não tem endpoint para atualizar equipe, apenas stats
+                NotificationService.show('Funcionalidade de edição de equipe não implementada no backend', 'info');
+            } catch (error) {
+                console.error('Erro ao atualizar equipe:', error);
+                NotificationService.show('Erro ao atualizar equipe', 'error');
+            }
+        }
+
+        async function deleteTeam(id) {
+            if (confirm('Tem certeza que deseja excluir esta equipe?')) {
+                try {
+                    await ApiService.deleteTeam(id);
+                    NotificationService.show('Equipe excluída com sucesso!', 'success');
+                    loadTeams();
+                } catch (error) {
+                    console.error('Erro ao excluir equipe:', error);
+                    NotificationService.show('Erro ao excluir equipe', 'error');
+                }
+            }
+        }
+
+        function editMatch(id) {
+            const match = matches.find(m => m.id === id);
+            if (match) {
+                const result = prompt('Resultado da partida (team1_win, team2_win, draw):', match.result || '');
+                if (result && ['team1_win', 'team2_win', 'draw'].includes(result)) {
+                    updateMatchResult(id, result);
+                }
+            }
+        }
+
+        async function updateMatchResult(id, result) {
+            try {
+                await ApiService.updateMatchResult(id, result);
+                NotificationService.show('Resultado da partida atualizado com sucesso!', 'success');
+                loadMatches();
+                loadRanking(); // Atualizar ranking após resultado
+            } catch (error) {
+                console.error('Erro ao atualizar resultado:', error);
+                NotificationService.show('Erro ao atualizar resultado', 'error');
+            }
+        }
+
+        async function deleteMatch(id) {
+            if (confirm('Tem certeza que deseja excluir esta partida?')) {
+                try {
+                    // Note: O backend não tem endpoint para excluir partida
+                    NotificationService.show('Funcionalidade de exclusão de partida não implementada no backend', 'info');
+                } catch (error) {
+                    console.error('Erro ao excluir partida:', error);
+                    NotificationService.show('Erro ao excluir partida', 'error');
+                }
+            }
+        }
+
+        // Redirecionar para cadastro
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function() {
                 const buttonText = this.textContent;
-                if (buttonText === 'Nova Competição' || buttonText === 'Nova Equipe' || buttonText === 'Nova Partida') {
-                    alert(`Funcionalidade "${buttonText}" será implementada aqui.`);
-                } else if (buttonText === 'Editar') {
-                    alert('Abrir formulário de edição.');
-                } else if (buttonText === 'Registrar Resultado') {
-                    alert('Abrir formulário para registrar resultado da partida.');
-                } else if (buttonText === 'Encerrar' || buttonText === 'Excluir') {
-                    alert(`Ação "${buttonText}" será implementada aqui.`);
-                } else if (buttonText === 'Ativar') {
-                    alert('Ação "Ativar" será implementada aqui.');
+                if (buttonText === 'Nova Competição') {
+                    window.location.href = './competition-subscriber.html';
+                } else if (buttonText === 'Nova Equipe') {
+                    window.location.href = './team-subscriber.html';
                 }
             });
         });

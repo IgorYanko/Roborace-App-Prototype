@@ -1,4 +1,4 @@
-import { prisma } from '../lib/prisma.js';
+import { prisma } from '../lib/prisma.ts';
 import type { Competition } from '@prisma/client';
 
 export type CompetitionCreateInput = {

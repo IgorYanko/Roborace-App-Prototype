@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { CompetitionModel } from '../models/Competition.js';
+import { CompetitionModel } from '../models/Competition.ts';
 
 export class CompetitionController {
   static async create(req: Request, res: Response) {

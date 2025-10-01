@@ -2,21 +2,33 @@ import express, { type Application, type Request, type Response } from 'express'
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import competitionRoutes from './routes/competitionRoutes.js';
-import teamRoutes from './routes/teamRoutes.js';
-import playerRoutes from './routes/playerRoutes.js';
-import matchRoutes from './routes/matchRoutes.js';
+import competitionRoutes from './routes/competitionRoutes.ts';
+import teamRoutes from './routes/teamRoutes.ts';
+import playerRoutes from './routes/playerRoutes.ts';
+import matchRoutes from './routes/matchRoutes.ts';
 
 dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  credentials: true
-}));
+// CORS simples para desenvolvimento
+const corsOptions: cors.CorsOptions = {
+  origin: true, // Aceita qualquer origem em desenvolvimento
+  credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
+
+// Preflight manual para cada rota da API
+app.options('/api/competitions', cors(corsOptions));
+app.options('/api/teams', cors(corsOptions));
+app.options('/api/players', cors(corsOptions));
+app.options('/api/matches', cors(corsOptions));
 
 app.use('/api/competitions', competitionRoutes);
 app.use('/api/teams', teamRoutes);

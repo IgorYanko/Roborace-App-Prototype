@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { PlayerModel } from '../models/Player.js';
+import { PlayerModel } from '../models/Player.ts';
 
 export class PlayerController {
   static async create(req: Request, res: Response) {

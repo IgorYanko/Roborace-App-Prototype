@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { MatchModel } from '../models/Match.js';
-import { TeamModel } from '../models/Team.js';
+import { MatchModel } from '../models/Match.ts';
+import { TeamModel } from '../models/Team.ts';
 
 export class MatchController {
   static async create(req: Request, res: Response) {
