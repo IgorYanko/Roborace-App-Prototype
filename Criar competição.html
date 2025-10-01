@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)file:///C:/Users/KayoW/OneDrive/Documentos/Aulas_html/ROBORACE/index.html -->
+<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNIVAS Roborace - Criar Competição</title>
+
+    <!-- Importa a fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Criar competição_files/css2" rel="stylesheet">
+
+    <style>
+        :root {
+            --cor-fundo: #0D0D0D;
+            --cor-card: #1A1A1A;
+            --cor-primaria: #00FF7F; 
+            --cor-texto: #F0F0F0;
+            --cor-texto-secundario: #A0A0A0;
+            --cor-borda: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            width: 100%;
+            padding: 2rem 3rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .logo-text {
+            color: var(--cor-primaria);
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-align: left;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--cor-primaria);
+            opacity: 0.2;
+            border-radius: 1px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 0 2rem; 
+        }
+
+        header h1 {
+            font-size: 1.6rem; 
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+        }
+
+        header p {
+            color: var(--cor-texto-secundario);
+            margin-bottom: 2rem;
+        }
+
+        .form-card {
+            background-color: var(--cor-card);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: left;
+            border: 1px solid var(--cor-borda);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); 
+        }
+
+        .form-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--cor-primaria);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--cor-texto-secundario);
+        }
+
+        .input-group input[type="text"],
+        .input-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: var(--cor-fundo);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            color: var(--cor-texto);
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif; 
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group select {
+            appearance: none; 
+            -webkit-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem; 
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--cor-primaria);
+            box-shadow: 0 0 10px rgba(0, 255, 127, 0.2);
+        }
+
+        .form-actions {
+            margin-top: 2.5rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--cor-primaria);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #00e670;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h2 class="logo-text">UNIVAS</h2>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>CADASTRO DE COMPETIÇÃO - ROBORACE</h1>
+            <p>Defina os parâmetros e regras do novo evento.</p>
+        </header>
+
+        <form class="form-card" action="file:///C:/criar-competicao" method="post">
+
+            <h2>Parâmetros da Competição</h2>
+
+            <div class="input-group">
+                <label for="competition-name">Nome do Evento</label>
+                <input type="text" id="competition-name" name="name" placeholder="Ex: Roborace Edição 2025" required="">
+            </div>
+
+            <div class="input-group">
+                <label for="max-teams">Quantidade Máxima de Equipes</label>
+                <select id="max-teams" name="maxTeams" required="">
+                    <option value="4">4 equipes</option>
+                    <option value="8">8 equipes</option>
+                    <option value="16" selected="">16 equipes</option>
+                    <option value="32">32 equipes</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="max-players">Máximo de Jogadores por Equipe</label>
+                <select id="max-players" name="maxPlayersPerTeam" required="">
+                    <option value="2">2 jogadores</option>
+                    <option value="3">3 jogadores</option>
+                    <option value="4" selected="">4 jogadores</option>
+                    <option value="5">5 jogadores</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">CRIAR COMPETIÇÃO</button>
+            </div>
+
+        </form>
+    </div>
+
+
+
+</body></html>
