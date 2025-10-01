@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roborace - Sistema de Competição</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Gerenciamento Roborace</title>
     <style>
-        /* ============ RESET E ESTILOS GLOBAIS ============ */
         * {
             margin: 0;
             padding: 0;
@@ -38,14 +36,13 @@
             overflow-x: hidden;
         }
         
-        /* Efeito de partículas */
         #particles-js {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: -1;
         }
-        /* ============ HEADER ============ */
+        
         header {
             background: linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(18, 18, 18, 0.95));
             padding: 1.5rem 2rem;
@@ -60,7 +57,7 @@
             align-items: center;
             gap: 1rem;
             max-width: 1280px;
-            margin: 0;
+            margin: 0 auto;
             padding: 0 1rem;
         }
         
@@ -92,8 +89,6 @@
             opacity: 0.9;
             color: var(--text-muted);
         }
-
-        /* ============ PRINCIPAL ============ */
         
         main {
             flex: 1;
@@ -105,74 +100,29 @@
             z-index: 5;
         }
         
-        .welcome-text {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            max-width: 800px;
-        }
-        
-        .welcome-text h2 {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-        
-        .welcome-text p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-muted);
-        }
-
-        /* ============ CONFIGURAÇÃO DOS CARDS ============ */
-        
-        .menu-container {
+        .dashboard-container {
             display: grid;
-            grid-template-columns: repeat(3, minmax(300px, 1fr));
-            grid-template-rows: auto auto;
+            grid-template-columns: repeat(3, minmax(250px, 1fr));
             gap: 30px;
             width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
+            margin-bottom: 2.5rem;
         }
         
-        /* Posicionando o card da competição na segunda linha, centralizado */
-        .menu-card.competition {
-            grid-column: 2/ 3;
-            grid-row: 2 / 3;
-            transform: scale(1.0);
-            z-index: 2;
-        }
-        
-        .menu-card:nth-child(1) {
-            grid-column: 1 / 2;
-            grid-row: 1 / 2;
-        }
-        
-        .menu-card:nth-child(2) {
-            grid-column: 2 / 3;
-            grid-row: 1 / 2;
-        }
-        
-        .menu-card:nth-child(3) {
-            grid-column: 3 / 4;
-            grid-row: 1 / 2;
-        }
-        
-        .menu-card {
+        .dashboard-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 2.5rem 2rem;
             text-align: center;
             transition: all 0.4s ease;
-            cursor: pointer;
             border: 1px solid var(--card-border);
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
         }
         
-        .menu-card::before {
+        .dashboard-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -182,40 +132,141 @@
             background: linear-gradient(to right, var(--accent), var(--accent-light));
         }
         
-        .menu-card:hover {
+        .dashboard-card:hover {
             transform: translateY(-15px) scale(1.03);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--accent-light);
         }
         
-        .menu-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--accent-light), var(--accent-bright));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
-        }
-        
-        .menu-title {
+        .dashboard-card h3 {
             font-size: 1.7rem;
             margin-bottom: 1rem;
             font-weight: 600;
             color: var(--text-light);
         }
         
-        .menu-description {
+        .dashboard-card .card-value {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent-bright));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .dashboard-card .card-description {
             font-size: 1rem;
             opacity: 0.9;
-            line-height: 1.5;
             color: var(--text-muted);
         }
+        
+        .tabs {
+            display: flex;
+            gap: 25px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            padding: 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 2.5rem;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .tab.active {
+            color: var(--accent-bright);
+            text-shadow: 0 0 10px rgba(0, 200, 0, 0.5);
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--accent-light);
+        }
+        
+        .tab-content {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tab-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        
+        .tab-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
 
-        /* ============ BOTÕES ============ */
-        .menu-card .btn {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 1.5rem;
+        }
+        
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        th {
+            font-weight: 600;
+            border-bottom: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        tr {
+            border-bottom: 1px solid var(--card-border);
+        }
+        
+        tr:last-child {
+            border-bottom: none;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: linear-gradient(to right, var(--accent), var(--accent-light));
+            color: var(--text-light);
+        }
+        
+        .status-inactive {
+            background: linear-gradient(to right, #4b4b4b, #6b6b6b);
+        }
+        
+        .btn {
             padding: 10px 20px;
             background: linear-gradient(to right, var(--accent), var(--accent-light));
             border: none;
@@ -224,22 +275,29 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(10px);
             box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
-        }
-        
-        .menu-card:hover .btn {
-            opacity: 1;
-            transform: translateY(0);
+            margin-right: 0.5rem;
         }
         
         .btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 200, 0, 0.5);
             background: linear-gradient(to right, var(--accent-light), var(--accent-bright));
+            box-shadow: 0 5px 20px rgba(0, 200, 0, 0.5);
         }
-        /* ============ FOOTER ============ */
+        
+        .btn-danger {
+            background: linear-gradient(to right, #8b0000, #a00000);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(to right, #a00000, #cc0000);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
         footer {
             background: linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(18, 18, 18, 0.95));
             padding: 2rem;
@@ -283,13 +341,6 @@
             color: var(--accent-bright);
         }
         
-        .copyright {
-            margin-top: 15px;
-            font-size: 0.95rem;
-            opacity: 0.8;
-            color: var(--text-muted);
-        }
-        
         .social-icons {
             display: flex;
             gap: 20px;
@@ -307,40 +358,33 @@
             transform: translateY(-3px);
         }
         
+        .copyright {
+            margin-top: 15px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            color: var(--text-muted);
+        }
+        
         .glow {
             text-shadow: 0 0 10px rgba(0, 200, 0, 0.5);
         }
         
-        /* Responsividade */
         @media (max-width: 768px) {
-            .menu-container {
+            .dashboard-container {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto;
             }
             
-            .menu-card.competition {
-                grid-column: 1 / 2;
-                grid-row: auto;
-                transform: scale(1);
-            }
-            
-            .menu-card:nth-child(1),
-            .menu-card:nth-child(2),
-            .menu-card:nth-child(3) {
-                grid-column: 1 / 2;
-                grid-row: auto;
+            .tabs {
+                flex-direction: column;
+                gap: 10px;
             }
             
             h1 {
                 font-size: 1.8rem;
             }
             
-            .welcome-text h2 {
+            .tab-content h2 {
                 font-size: 1.8rem;
-            }
-            
-            .menu-card {
-                padding: 2rem 1.5rem;
             }
             
             .footer-links {
@@ -351,8 +395,6 @@
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    
     <header>
         <div class="logo-container">
             <div class="logo">
@@ -360,52 +402,249 @@
             </div>
             <div>
                 <h1 class="glow">Roborace</h1>
-                <div class="subtitle">Sistema de Gerenciamento de Competições</div>
+                <p class="subtitle">Sistema de Gerenciamento de Competições</p>
             </div>
         </div>
     </header>
-    
+
     <main>
-        <div class="welcome-text">
-            <h2>Bem-vindo ao Sistema Roborace</h2>
-            <p>Gerencie competições, equipes e resultados de forma eficiente e moderna. Nosso sistema foi desenvolvido para facilitar a organização da competição Roborace, garantindo precisão no chaveamento e contabilização de pontos.</p>
+        <div class="dashboard-container">
+            <div class="dashboard-card">
+                <h3>Competições Ativas</h3>
+                <div class="card-value">2</div>
+                <div class="card-description">Em andamento</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Equipes Cadastradas</h3>
+                <div class="card-value">16</div>
+                <div class="card-description">Equipes</div>
+            </div>
+            <div class="dashboard-card">
+                <h3>Partidas Realizadas</h3>
+                <div class="card-value">42</div>
+                <div class="card-description">Nesta temporada</div>
+            </div>
         </div>
-        
-        <div class="menu-container">
-            <div class="menu-card" onclick="location.href='cadastro-competicao.html'">
-                <div class="menu-icon"><i class="fas fa-trophy"></i></div>
-                <div class="menu-title">Cadastro de Competição</div>
-                <div class="menu-description">Crie e gerencie novas competições, definindo datas, regras, participantes e estrutura do evento.</div>
-                <button class="btn">Acessar</button>
-            </div>
-            
-            <div class="menu-card" onclick="location.href='cadastro-equipe.html'">
-                <div class="menu-icon"><i class="fas fa-users"></i></div>
-                <div class="menu-title">Cadastro de Equipe</div>
-                <div class="menu-description">Registre equipes participantes, seus membros, robôs e todas as informações relevantes.</div>
-                <button class="btn">Acessar</button>
-            </div>
-            
-            <div class="menu-card" onclick="location.href='ranqueamento.html'">
-                <div class="menu-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="menu-title">Ranqueamento</div>
-                <div class="menu-description">Acompanhe a classificação das equipes, visualize estatísticas e gere relatórios de desempenho.</div>
-                <button class="btn">Acessar</button>
-            </div>
-            
-            <div class="menu-card competition" onclick="location.href='competicao.html'">
-                <div class="menu-icon"><i class="fas fa-robot"></i></div>
-                <div class="menu-title">Competição</div>
-                <div class="menu-description">Acesse o painel de controle da competição em andamento e gerencie as partidas em tempo real.</div>
-                <button class="btn">Acessar</button>
-            </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Dashboard</div>
+            <div class="tab" data-tab="competitions">Competições</div>
+            <div class="tab" data-tab="teams">Equipes</div>
+            <div class="tab" data-tab="matches">Partidas</div>
+            <div class="tab" data-tab="ranking">Ranking</div>
+        </div>
+
+        <div id="dashboard" class="tab-content active">
+            <h2>Visão Geral da Competição</h2>
+            <p>Bem-vindo ao sistema de gerenciamento da competição Roborace. Utilize as abas acima para navegar pelas diferentes funcionalidades.</p>
+            <h2>Próximas Partidas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Equipe 1</th>
+                        <th>Equipe 2</th>
+                        <th>Fase</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>15/10/2023</td>
+                        <td>RoboTeam Alpha</td>
+                        <td>TechBots</td>
+                        <td>Eliminatórias</td>
+                        <td class="actions">
+                            <button class="btn">Registrar Resultado</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>18/10/2023</td>
+                        <td>Mecatron Masters</td>
+                        <td>Future Engineers</td>
+                        <td>Eliminatórias</td>
+                        <td class="actions">
+                            <button class="btn">Registrar Resultado</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="competitions" class="tab-content">
+            <h2>Gerenciar Competições</h2>
+            <button class="btn" style="margin-bottom: 20px;">Nova Competição</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Roborace 2023 - Fase Regional</td>
+                        <td>01/09/2023</td>
+                        <td>30/10/2023</td>
+                        <td><span class="status-badge status-active">Ativa</span></td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Encerrar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Roborace 2023 - Fase Nacional</td>
+                        <td>15/11/2023</td>
+                        <td>20/12/2023</td>
+                        <td><span class="status-badge status-inactive">Planejamento</span></td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn">Ativar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="teams" class="tab-content">
+            <h2>Gerenciar Equipes</h2>
+            <button class="btn" style="margin-bottom: 20px;">Nova Equipe</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Escola/Instituição</th>
+                        <th>Membros</th>
+                        <th>Pontuação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RoboTeam Alpha</td>
+                        <td>Univás</td>
+                        <td>5</td>
+                        <td>245</td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>TechBots</td>
+                        <td>Escola Técnica Estadual</td>
+                        <td>4</td>
+                        <td>198</td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mecatron Masters</td>
+                        <td>IFSULDEMINAS</td>
+                        <td>6</td>
+                        <td>187</td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="matches" class="tab-content">
+            <h2>Gerenciar Partidas</h2>
+            <button class="btn" style="margin-bottom: 20px;">Nova Partida</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Equipe 1</th>
+                        <th>Equipe 2</th>
+                        <th>Resultado</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#023</td>
+                        <td>RoboTeam Alpha</td>
+                        <td>Future Engineers</td>
+                        <td>3-1</td>
+                        <td>10/10/2023</td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#024</td>
+                        <td>TechBots</td>
+                        <td>Mecatron Masters</td>
+                        <td>2-2</td>
+                        <td>12/10/2023</td>
+                        <td class="actions">
+                            <button class="btn">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="ranking" class="tab-content">
+            <h2>Ranking da Competição</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Equipe</th>
+                        <th>Pontuação</th>
+                        <th>Vitórias</th>
+                        <th>Empates</th>
+                        <th>Derrotas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1º</td>
+                        <td>RoboTeam Alpha</td>
+                        <td>245</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>2º</td>
+                        <td>TechBots</td>
+                        <td>198</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>3º</td>
+                        <td>Mecatron Masters</td>
+                        <td>187</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
-    
+
     <footer>
         <div class="footer-content">
             <div class="footer-logo">Roborace</div>
-            <div>Projeto Roborace - Sistema de Competição</div>
+            <p>Projeto Roborace - Sistema de Competição</p>
             <div class="footer-links">
                 <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
                 <a href="#"><i class="fas fa-envelope"></i> Contato</a>
@@ -415,52 +654,39 @@
             <div class="social-icons">
                 <a href="https://www.instagram.com/sistemasunivas?igsh=NmExMGVzdGtwOXU2"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="copyright">
-                © 2025 Roborace - Desenvolvido para a Univás | Luiz Gustavo
-            </div>
+            <p class="copyright">© 2025 Roborace - Desenvolvido para a Univás | Luiz Gustavo</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Configuração das partículas
-        document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 60, density: { enable: true, value_area: 800 } },
-                    color: { value: "#008000" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.5, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#00a000",
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 2,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "repulse" },
-                        onclick: { enable: true, mode: "push" },
-                        resize: true
-                    }
-                },
-                retina_detect: true
+        // Navegação entre abas
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
             });
         });
-        
+
+        // Simulação de funcionalidades
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const buttonText = this.textContent;
+                if (buttonText === 'Nova Competição' || buttonText === 'Nova Equipe' || buttonText === 'Nova Partida') {
+                    alert(`Funcionalidade "${buttonText}" será implementada aqui.`);
+                } else if (buttonText === 'Editar') {
+                    alert('Abrir formulário de edição.');
+                } else if (buttonText === 'Registrar Resultado') {
+                    alert('Abrir formulário para registrar resultado da partida.');
+                } else if (buttonText === 'Encerrar' || buttonText === 'Excluir') {
+                    alert(`Ação "${buttonText}" será implementada aqui.`);
+                } else if (buttonText === 'Ativar') {
+                    alert('Ação "Ativar" será implementada aqui.');
+                }
+            });
+        });
     </script>
 </body>
 </html>
